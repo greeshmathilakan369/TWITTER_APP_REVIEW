@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>  
+   <div class="container"> 
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">DATE</th>
+            <th scope="col">NAME</th>
+            <!-- <th scope="col">review</th> -->
+         
+            <th scope="col">TWEETS</th>
+            
+          </tr>
+        </thead>
+          {% for i in lists %}
+          <tr>
+          <th scope="row">{{i[0]}}</th>
+          <td>{{i[1]}}
+          </td>
+          <td>{{i[2]}}
+          </td>
+          <td>{{i[3]}}
+          </td>
+          <td>{{i[4]}}
+          </td>
+          
+          
+            
+          
+          <!-- <td>  <button type="submit" id=i[0]>Delete</button></td>> -->
+          </tr>
+          {% endfor %}
+    </table>
+    </div>
+</body>
+</html>
