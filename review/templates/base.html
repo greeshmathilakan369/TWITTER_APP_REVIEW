@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Template Inheritance</title>
+    <style>
+        .right {
+    text-align: right;
+    float: right;
+    padding-left: 1%;
+    color: black;
+}
+    </style>
+</head>
+<body>
+    <div style="background-color: rgb(25, 187, 216); padding:2%; font-size: 20px;">
+    <a  href="{{url_for('home')}}" style=" color: black;">Home</a>
+    <a  href="{{url_for('review')}}" class="right">Add Review</a> &nbsp;&nbsp;&nbsp;
+    <a  href="{{url_for('list')}}" class="right">Review List</a> &nbsp;&nbsp;&nbsp;
+    <a  href="{{url_for('list_tweet')}}" class="right">Twitter Data</a> &nbsp;&nbsp;&nbsp;
+</div>
+    {% block content %}
+    {% endblock %}
+  
+</body>
+</html>

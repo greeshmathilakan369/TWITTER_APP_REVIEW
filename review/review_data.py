@@ -19,7 +19,7 @@ def home():
     data = cur.fetchall()
     print('data',data)
     conn.commit()
-    flash('This is a flash message')
+    # flash('This is a flash message')
     cur.close()
     conn.close()
     return render_template("home.html")

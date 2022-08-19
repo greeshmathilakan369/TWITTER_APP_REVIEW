@@ -31,9 +31,10 @@ div {
   padding: 20px;
 }
 </style>
-<body>
+{%extends "base.html" %}
+{%block content%}
 
-<h3>Modify user</h3>
+<h3>Add User</h3>
 
 <div style="margin-right: 50%;">
     <form action="{{ url_for('review')}}" method="post">
@@ -45,7 +46,9 @@ div {
         
         <label for="review">Review</label>
         <input type="text" id="review" name="review" placeholder="review">
-        <button type="submit">Submit</button>
+        <!-- <button type="submit">Submit</button> -->
+        <input class="btn btn-success" type="Submit"></input>
+
         {% with messages = get_flashed_messages() %}
  {% if messages %}
   <ul>
@@ -58,5 +61,4 @@ div {
   </form>
 </div>
 
-</body>
-</html>
+{% endblock %}

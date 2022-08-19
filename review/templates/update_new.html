@@ -31,7 +31,8 @@ div {
   padding: 20px;
 }
 </style>
-<body>
+{%extends "base.html" %}
+{%block content%}
 
 <h3>Modify User</h3>
 
@@ -53,5 +54,4 @@ div {
         <input class="btn btn-success" type="Submit" value="Update"></input>
 </div>
 
-</body>
-</html>
+{% endblock %}
