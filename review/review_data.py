@@ -2,7 +2,7 @@ import re
 from flask import Flask,request, render_template, redirect,flash
 from db_config import get_db_connection
 
-app=Flask("__name1__")
+app=Flask("__name__")
 app.secret_key="greeshma"
 
 #home
