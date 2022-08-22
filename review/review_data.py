@@ -1,29 +1,17 @@
-#flak basics and create basic routes
-from ast import And
-from crypt import methods
-from logging import root
-from unicodedata import name
+import re
 from flask import Flask,request, render_template, redirect,flash
 from db_config import get_db_connection
-import re
 
 app=Flask("__name1__")
 app.secret_key="greeshma"
 
+#home
 @app.route("/")
 @app.route("/home")
 def home():
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM reviews;')
-    data = cur.fetchall()
-    print('data',data)
-    conn.commit()
-    # flash('This is a flash message')
-    cur.close()
-    conn.close()
     return render_template("home.html")
 
+#To add reviews
 @app.route('/reviews', methods =["GET", "POST"])
 def review():
     if request.method == "POST":
@@ -48,8 +36,10 @@ def review():
 
         else:
             flash("Invalid email id") 
-    return render_template("post_data_sir's.html")   
+    return render_template("add_reviews.html")   
+    
 
+#To list reviews
 @app.route("/lists",methods=["GET","POST"])
 def list():
     if request.method == "GET":
@@ -64,6 +54,7 @@ def list():
         print(list2)
     return render_template("listdata.html",lists=list2)  
 
+#To delete user data
 @app.route("/delete/<int:id>",methods=["GET","POST"]) 
 def delete(id):
     if request.method=="GET":
@@ -77,16 +68,14 @@ def delete(id):
     return redirect('/lists')
 
   
-
+#To modify user data
 @app.route("/update/<int:id>",methods=["GET","POST"])
 def update(id):
-
-
     if request.method == "GET":
         result =[]
         conn=get_db_connection()
         cur=conn.cursor()
-        query=cur.execute("select * from public.reviews where id="+str(id)) 
+        cur.execute("select * from public.reviews where id="+str(id)) 
         result=cur.fetchone()
         conn.commit()
         cur.close()
@@ -102,11 +91,11 @@ def update(id):
         review=request.form.get("review")
         pattern='[a-z 0-9]+[\.]?[a-z 0-9]+[@]\w+[.]\w{2,3}$'
         if re.search(pattern,email):
-            user=cur.execute("SELECT * FROM public.reviews where id !=" +str(id)+ "And email='" +email+"'")
+            cur.execute("SELECT * FROM public.reviews where id !=" +str(id)+ "And email='" +email+"'")
             user1=cur.fetchall()
             if user1 == []:
-                strSQl= "update public.reviews set name='"+name+"',email='"+email+"', review='"+review+"' where id="+str(id)
-                cur.execute(strSQl)
+                update_qry= "update public.reviews set name='"+name+"',email='"+email+"', review='"+review+"' where id="+str(id)
+                cur.execute(update_qry)
                 conn.commit()
                 flash("Modified user data sucessfully")
                 cur.close()
@@ -118,17 +107,14 @@ def update(id):
             flash("Invalid email id") 
     return render_template("post_data_new1.html")   
 
-
-
-#.................list tweet data...............
-
+#To list twitter data 
 @app.route("/lists_tweet",methods=["GET","POST"])
 def list_tweet():
     if request.method == "GET":
         list2 =[]
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.execute("SELECT * FROM public.twitter_data")
+        cur.execute("SELECT * FROM public.twitter_data ORDER BY tid DESC")
         list2=cur.fetchall()
         print(list2,"staert")
         conn.commit()
@@ -136,7 +122,6 @@ def list_tweet():
         conn.close()
         print(list2)
     return render_template("list_tweetdata.html",lists=list2)
- #.................end list tweet data   
 
 if __name__=="__main__":
  app.run(debug=True)
